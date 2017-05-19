@@ -7,6 +7,7 @@ Segmentation example:
     mlrfsSegment.m
 
 For a running example, download the dataset at
-http://idac.hms.harvard.edu/segmentation
-and run (with proper modifications) the .m scripts listed above.
+http://idac.hms.harvard.edu/segmentation,
+place the folder Data in the same folder containing this file,
+and run the .m scripts listed above.
 See m-files for parameters to set, and their meaning.
