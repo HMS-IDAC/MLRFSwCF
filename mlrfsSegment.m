@@ -3,12 +3,10 @@ clear, clc
 %% load image, model
 
 imIndex = 1;
-imPath = sprintf('~/Desktop/Data/TestImages/I%03d.tif',imIndex);
-lbPath = sprintf('~/Desktop/Data/TestLabels/L%03d.tif',imIndex);
-I = imread(imPath);
-gtL = imread(lbPath)+1;
+imPath = sprintf('Data/TestImages/I%03d.tif',imIndex);
+lbPath = sprintf('Data/TestLabels_Sampled_3Classes/L%03d.tif',imIndex);
 
-rfModelPath = '~/Desktop/rfModel.mat';
+rfModelPath = 'Model/rfModel.mat';
 disp('loading rfModel')
 tic
 load(rfModelPath); % loads rfModel
@@ -16,30 +14,28 @@ toc
 
 %% segmentation
 
+I = imread(imPath);
+
 I = double(I);
 I = I/max(max(I));
 
 [imL,classProbs] = mlrfsImClassify(I,rfModel);
 
-%% watershed post-processing
-
-paramimhmin = 0.1;
-parambgthr = 0.1;
-M = mlrfsWatershedPostProc(classProbs,paramimhmin,parambgthr);
-
-L = 3*uint8(M);
-L(L == 0) = 1;
-PredWS = label2rgb(L,'winter');
-
 %% display
 
-gtL(gtL == 4) = 0;
-gtL3 = label2rgb(gtL,'winter');
+gtL = imread(lbPath);
+
+L = zeros(size(gtL));
+labels = rfModel.labels;
+for lbIndex = 1:rfModel.nLabels
+    L(gtL == labels(lbIndex)) = lbIndex;
+end
+
+gtL3 = label2rgb(L,'winter','k');
 I3 = repmat(uint8(255*I),[1 1 3]);
-imL3 = label2rgb(imL,'winter');
+imL3 = label2rgb(imL,'winter','k');
 
 figureQSS
-subplot(2,2,1), imshow(I3), title('image')
-subplot(2,2,2), imshow(gtL3), title('ground truth')
-subplot(2,2,3), imshow(imL3), title('rf prediction')
-subplot(2,2,4), imshow(PredWS), title('watershed(rf prediction)')
+subplot(1,3,1), imshow(I3), title('image')
+subplot(1,3,2), imshow(gtL3), title('ground truth')
+subplot(1,3,3), imshow(imL3), title('rf prediction')
