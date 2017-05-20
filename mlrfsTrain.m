@@ -64,7 +64,6 @@ minLeafSize = 60;
 
 rfModelFolderPath = 'Model';
 % path to folder where model (named rfModel.mat) will be saved
-% folder should exist already
 
 % 
 % no parameters to set beyond this point
@@ -135,6 +134,9 @@ fprintf('training layer 1...'); tic
 figureQSS, subplot(1,2,1), plot(featImp,'o'), title('feature importance, layer 1')
 subplot(1,2,2), plot(oobPredError), title('out-of-bag classification error')
 fprintf('training time: %f s\n', toc);
+if exist(rfModelFolderPath,'dir') ~= 7
+    mkdir(rfModelFolderPath);
+end
 save([rfModelFolderPath '/treeBag1.mat'],'treeBag');
 clear treeBag
 
