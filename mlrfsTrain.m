@@ -14,7 +14,7 @@ labels = [1 2 3];
 % contour, foreground, you'd set labels = [1 2 3]; you can also
 % simply set labels = [1 3] if you only want to detect background and foreground
 
-nImages = 6; % 60
+nImages = 2; % 60
 imPaths = cell(1,nImages);
 lbPaths = cell(1,nImages);
 for imIndex = 1:nImages
