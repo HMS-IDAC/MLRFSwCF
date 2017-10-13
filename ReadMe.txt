@@ -11,3 +11,7 @@ http://idac.hms.harvard.edu/segmentation,
 place the folder Data in the same folder containing this file,
 and run the .m scripts listed above.
 See m-files for parameters to set, and their meaning.
+
+Developed by:
+Marcelo Cicconet
+marceloc.net
