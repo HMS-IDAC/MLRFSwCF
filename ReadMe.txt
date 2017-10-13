@@ -15,3 +15,6 @@ See m-files for parameters to set, and their meaning.
 Developed by:
 Marcelo Cicconet
 marceloc.net
+
+Reference:
+https://www.biorxiv.org/content/early/2017/08/03/172296
